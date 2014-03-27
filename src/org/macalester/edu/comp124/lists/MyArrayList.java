@@ -12,7 +12,6 @@ public class MyArrayList<E> {
 	 * The array elements
 	 */
 	private E elements[];
-	
 	/**
 	 * The number of elements currently contained in the list.
 	 */
@@ -47,7 +46,7 @@ public class MyArrayList<E> {
 	 * @return
 	 */
 	public E get(int index) {
-        return null;    // replace this line with the correct code.
+        return elements[index];    // replace this line with the correct code.
 	}
 	
 	/**
@@ -60,7 +59,19 @@ public class MyArrayList<E> {
 	 * @param elem
 	 */
 	public void add(E elem) {
-	}
+              if (elements[size()] == null) {
+              elements[size()]= elem;
+              currentSize +=1;
+              } else if (elements[size()] != null) {
+                expandSize();
+                 elements[size()]= elem;
+                  currentSize +=1;
+              }
+          }
+
+
+
+
 
 	/**
 	 * Inserts a new element at the specified index.
@@ -74,6 +85,16 @@ public class MyArrayList<E> {
 	 * @param elem
 	 */
 	public void add(int index, E elem) {
+        if (elements[index]==null) {
+            elements[index] = elem;
+            currentSize++;
+        } else if (elements[index] != null) {
+            expandSize();
+            for(int i = index; i < elements.length; i++) {
+              elements[i + 1]= get(i);
+              elements[index] = elem;
+            }
+        }
 	}
 	
 	/**
@@ -85,7 +106,19 @@ public class MyArrayList<E> {
      * Hint: use newArrayOfE!
 	 */
 	private void expandSize() {
-	}
+        int oldArrayLength = elements.length;
+        E [] oldElements = newArrayOfE(elements.length);
+
+        for (int i =0; i< oldArrayLength; i++){
+             oldElements[i] = get(i);
+        }
+        elements = newArrayOfE(oldArrayLength*2);
+        for(int i= 0; i< oldArrayLength; i++) {
+            elements[i] =oldElements[i];
+        }
+
+        }
+
 	
 	/**
 	 * Due to some crazy Java constraints, we can't simply create a
