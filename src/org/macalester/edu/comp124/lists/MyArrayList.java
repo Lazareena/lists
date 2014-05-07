@@ -59,17 +59,22 @@ public class MyArrayList<E> {
 	 * @param elem
 	 */
 	public void add(E elem) {
-              if (elements[size()] == null) {
-              elements[size()]= elem;
-              currentSize +=1;
-              } else if (elements[size()] != null) {
-                expandSize();
-                 elements[size()]= elem;
+              if (size() == elements.length) {
+                  expandSize();
+                  elements[size()]= elem;
                   currentSize +=1;
+
+              } else if (size() < elements.length) {
+                for(int i=0; i< elements.length; i++){
+                 if (elements[i]== null) {
+                     elements[i] = elem;
+                     currentSize+=1;
+                     return;
+                 }
+
+                }
               }
           }
-
-
 
 
 
@@ -107,7 +112,7 @@ public class MyArrayList<E> {
 	 */
 	private void expandSize() {
         int oldArrayLength = elements.length;
-        E [] oldElements = newArrayOfE(elements.length);
+        E[] oldElements = newArrayOfE(elements.length);
 
         for (int i =0; i< oldArrayLength; i++){
              oldElements[i] = get(i);
